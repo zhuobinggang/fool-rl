@@ -29,7 +29,7 @@ def run(episode_max = 500,T = 500):
     step_counter = 0
     for _ in range(T):
       step_counter += 1
-      action = U.policy(state, env, m, prob = 0.2)
+      action = U.policy(state, env, m, prob = 0.3)
       (state_next, reward, done, info) = env.step(action)
       history.append((state, action, reward))
       state = state_next
@@ -64,7 +64,7 @@ def draw():
   env = gym.make('CartPole-v1')
   state = env.reset()
   m = G['m']
-  for _ in range(1000):
+  for _ in range(5000):
     env.render()
     (state_next, reward, done, info) = env.step(m.sample(state)) # take a random action
     if done:
