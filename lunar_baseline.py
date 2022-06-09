@@ -74,3 +74,11 @@ def test():
 
 def learn():
     model.learn(total_timesteps=100000, log_interval=10, callback=callback)
+
+
+def plot():
+    x, y = ts2xy(load_results(log_dir), 'timesteps')  # Organising the logged results in to a clean format for plotting.
+    plt.plot(x,y)
+    plt.ylim([-300, 300])
+    plt.xlabel('Timesteps')
+    plt.ylabel('Episode Rewards')

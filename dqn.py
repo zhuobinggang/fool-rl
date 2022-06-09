@@ -23,13 +23,13 @@ rew_buffer = deque([0.0], maxlen=100)
 episode_reward = 0.0
 
 class Network(nn.Module):
-    def __init(self, env):
+    def __init__(self, env):
         super.__init__()
         in_features = int(np.prod(env.observation_space.shape))
         self.net = nn.Sequential(
-                nn.Linear(in_features, 65),
+                nn.Linear(in_features, 64),
                 nn.Tanh(),
-                nn.Linear(65, env.action_space.n)
+                nn.Linear(64, env.action_space.n)
         )
 
     def forward(self, x):
@@ -88,9 +88,9 @@ for step in itertools.count():
     new_obses = np.array([t[4] for t in transitions])
 
     obses_t = torch.as_tensor(obses, dtype = torch.float32)
-    actions_t = torch.as_tensor(actions, dtype = torch.int64)
-    rews_t = torch.as_tensor(rews, dtype = torch.float32)
-    dones_t = torch.as_tensor(dones, dtype = torch.float32)
+    actions_t = torch.as_tensor(actions, dtype = torch.int64).unsqueeze(-1)
+    rews_t = torch.as_tensor(rews, dtype = torch.float32).unsqueeze(-1)
+    dones_t = torch.as_tensor(dones, dtype = torch.float32).unsqueeze(-1)
     new_obses_t = torch.as_tensor(new_obses, dtype = torch.float32)
 
     # Compute targets 
